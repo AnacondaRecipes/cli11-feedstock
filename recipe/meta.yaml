@@ -22,10 +22,11 @@ requirements:
     - cmake
     - ninja
   host:
-    - libboost >=1.61
+    #  libboost is not available in s390x yet. When it is, update `build.sh` to ensure autor's tests are run.
+    - libboost >=1.61  # [not s390x]
 
 test:
-  # NOTE: Author's tests are run from the build scripts in all architectures.
+  # NOTE: Author's tests are run from the build scripts in all architectures (except s390x!).
   commands:
     # Insure files are installed to the correct location.
     - test -f $PREFIX/include/CLI/CLI.hpp  # [unix]

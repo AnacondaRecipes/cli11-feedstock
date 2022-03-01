@@ -16,5 +16,11 @@ cmake .. -G"Ninja" ${CMAKE_ARGS} \
 ninja install || exit 1
 
 
+# Exit early for s390x since `libboost` is not available.
+if [ "${target_platform}" == 'linux-aarch64' ]; then
+    exit 0
+fi
+
+
 # Perform tests.
 ninja test || exit 1
