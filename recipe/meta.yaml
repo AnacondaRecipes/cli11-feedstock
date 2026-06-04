@@ -1,6 +1,6 @@
 {% set name = "cli11" %}
-{% set version = "2.1.2" %}
-{% set sha_hash = "26291377e892ba0e5b4972cdfd4a2ab3bf53af8dac1f4ea8fe0d1376b625c8cb" %}
+{% set version = "2.6.2" %}
+{% set sha_hash = "c6ea6b2e5608b3ea8617999bd5f47420c71b2ebdb8dc4767c1034d1da5785711" %}
 {% set build_number = "0" %}
 
 
@@ -14,6 +14,10 @@ source:
 
 build:
   number: {{ build_number }}
+  # Header only library, does not need to inherit libcxx runtime.
+  ignore_run_exports_from:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
 
 requirements:
   build:
@@ -21,9 +25,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-  host:
-    #  libboost is not available in s390x yet. When it is, update `build.sh` to ensure autor's tests are run.
-    - libboost >=1.61  # [not s390x]
 
 test:
   # NOTE: Author's tests are run from the build scripts in all architectures (except s390x!).
