@@ -1,19 +1,17 @@
 {% set name = "cli11" %}
 {% set version = "2.6.2" %}
-{% set sha_hash = "c6ea6b2e5608b3ea8617999bd5f47420c71b2ebdb8dc4767c1034d1da5785711" %}
-{% set build_number = "0" %}
 
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/CLIUtils/CLI11/archive/v{{ version }}.tar.gz
-  sha256: {{ sha_hash }}
+  sha256: c6ea6b2e5608b3ea8617999bd5f47420c71b2ebdb8dc4767c1034d1da5785711
 
 build:
-  number: {{ build_number }}
+  number: 0
   # Header only library, does not need to inherit libcxx runtime.
   ignore_run_exports_from:
     - {{ compiler('c') }}
@@ -25,10 +23,9 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - ninja
+    - ninja-base
 
 test:
-  # NOTE: Author's tests are run from the build scripts in all architectures (except s390x!).
   commands:
     # Insure files are installed to the correct location.
     - test -f $PREFIX/include/CLI/CLI.hpp  # [unix]
